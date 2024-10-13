@@ -1,0 +1,135 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1 SOFT DRINKS
+
+  .row
+    .col-12.col-lg-9
+      .row
+        .col-12.col-md-6
+          .card.card-primary
+            .card-block
+              h3 Coke
+              .d-flex
+                img.img-fluid(src='/images/coke.png', alt='coke', style='width: 150px; height: auto; margin-right: 15px;')
+                .softdrinks-description
+                  p Coke is a classic fizzy drink with a perfect balance of sweetness and carbonation that gives you the iconic refreshing taste.
+                  p Cost: &#8377; 50
+                  button.btn.btn-primary(onclick='addToCart("coke", "Coke", 50)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Sprite
+              .d-flex
+                img.img-fluid(src='/images/sprite.png', alt='sprite', style='width: 150px; height: auto; margin-right: 15px;')
+                .softdrinks-description
+                  p Sprite offers a zesty lemon-lime flavor with a clean, refreshing finish to quench your thirst.
+                  p Cost: &#8377; 50
+                  button.btn.btn-primary(onclick='addToCart("sprite", "Sprite", 50)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Thums Up
+              .d-flex
+                img.img-fluid(src='/images/thumsup.png', alt='thumsup', style='width: 150px; height: auto; margin-right: 15px;')
+                .softdrinks-description
+                  p Thums Up has a bold, fizzy cola flavor with an extra strong carbonation for a thirst-quenching kick.
+                  p Cost: &#8377; 55
+                  button.btn.btn-primary(onclick='addToCart("thums up", "Thums Up", 55)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Fanta
+              .d-flex
+                img.img-fluid(src='/images/fanta.png', alt='fanta', style='width: 150px; height: auto; margin-right: 15px;')
+                .softdrinks-description
+                  p Fanta brings you a vibrant orange flavor that is fruity and fizzy, perfect for a refreshing drink.
+                  p Cost: &#8377; 45
+                  button.btn.btn-primary(onclick='addToCart("fanta", "Fanta", 45)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Mountain Dew
+              .d-flex
+                img.img-fluid(src='/images/mountaindew.png', alt='mountaindew', style='width: 150px; height: auto; margin-right: 15px;')
+                .softdrinks-description
+                  p Mountain Dew offers a refreshing citrus blast with high energy and a smooth finish.
+                  p Cost: &#8377; 55
+                  button.btn.btn-primary(onclick='addToCart("mountaindew", "Mountain Dew", 55)') Add to Cart
+    .col-12.col-lg-3
+      .card.card-primary
+        .card-block
+          h2.card-title Customer reviews
+          a.btn.btn-primary.float-right(href='/location/review/new') Write a Review
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor User1
+              small.reviewTimestamp 20 September 2023
+              .col-12
+              p Great selection of soft drinks!
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor User2
+              small.reviewTimestamp 14 October 2023
+              .col-12
+              p Refreshing drinks at a great price.
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor User3
+              small.reviewTimestamp 1 October 2023
+              .col-12
+              p Always a refreshing choice.
+  // JavaScript for Add to Cart functionality
+  script.
+    function addToCart(itemId, itemName, itemPrice) {
+      const item = {
+        id: itemId,
+        name: itemName,
+        price: itemPrice,
+        quantity: 1 // Set the quantity you want to add
+      };
+
+      // Send a POST request to add the item to the cart
+      fetch('/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to add item to cart');
+        } else {
+          showToast(itemName); // Show toast with item name
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+      function showToast(itemName) {
+        const toast = document.getElementById('toast');
+        toast.querySelector('.toast-body').textContent = `${itemName} added to cart!`; // Set toast message
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3000); // Hide after 3 seconds
+      }
+    }

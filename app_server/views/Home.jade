@@ -1,0 +1,113 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1 <p style="font-size: 200px;">Grabites.</p>
+
+  .row
+    .col-12.col-md-8
+      .card
+        .card-block
+          h4
+            a(href="/location")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Food</p>
+            p.address Grab a bite to drive away hunger!<br>Checkout our food menu here!
+          p.address 500 Rs. for 2 people
+          p.facilities
+            span.badge.badge-warning Tasty
+            span.badge.badge-warning Fresh
+            span.badge.badge-warning Loved
+  
+    .col-12.col-md-4
+      p(style='font-size: 70px; color: #FFFFFF; font-weight: bold;') Fast, Fresh and Full of Flavor!
+
+  // New block for Drinks
+  block drinks
+    .row
+      .col-12
+        <p style="font-size: 50px; font-weight: bold; line-height: 1;">Drinks</p>
+        p(style='font-size: 20px;') Explore our refreshing drink options below:
+
+      .col-12.col-md-6
+        .card
+          .card-block
+            h4
+              a(href="/drinks")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Soft Drinks</p>
+            p.address Quench your thirst with our selection of soft drinks! 
+            p.address 100 Rs. each
+            p.facilities
+              span.badge.badge-warning Refreshing
+              span.badge.badge-warning Chilled
+            
+      .col-12.col-md-6
+        .card
+          .card-block
+            h4
+              a(href="/drinks")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Juices</p>
+            p.address Enjoy our freshly squeezed juices! 
+            p.address 150 Rs. each
+            p.facilities
+              span.badge.badge-warning Fresh
+              span.badge.badge-warning Healthy
+              span.badge.badge-warning Natural
+              
+  // New block for Desserts
+  block desserts
+    .row
+      .col-12
+        <p style="font-size: 50px; font-weight: bold; line-height: 1;">Desserts</p>
+        p(style='font-size: 20px;') Finish your meal with our delightful desserts below:
+
+      .col-12.col-md-6
+        .card
+          .card-block
+            h4
+            <p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Fruit Custard</p>
+            p.address A refreshing mix of seasonal fruits to cool you down!
+            p.address 150 Rs. each
+            p.facilities
+              span.badge.badge-warning Healthy
+              span.badge.badge-warning Fresh
+              span.badge.badge-warning Light
+            // Add to Cart button aligned to the right
+            .d-flex.justify-content-end
+              button.btn.btn-primary(onclick='addToCart("Fruit Salad", "Fruit Salad", 150)') Add to Cart
+
+
+  script.
+    function addToCart(itemId, itemName, itemPrice) {
+      const item = {
+        id: itemId,
+        name: itemName,
+        price: itemPrice,
+        quantity: 1 // Set the quantity to add (can be modified to user choice)
+      };
+
+      // Send a POST request to add the item to the cart
+      fetch('/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item) // This is the correct place for JSON.stringify
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to add item to cart');
+        } else {
+          showToast(itemName); // Show a toast notification with the item name
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
+    function showToast(itemName) {
+      const toast = document.getElementById('toast');
+      toast.querySelector('.toast-body').textContent = `${itemName} added to cart!`; // Set the toast message
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000); // Hide the toast after 3 seconds
+    }

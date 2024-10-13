@@ -1,0 +1,130 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1 FOODS
+
+  .row
+    .col-12.col-lg-9
+     
+      .row
+        .col-12.col-md-6
+          .card.card-primary
+            .card-block
+              h3 Noodles
+              .d-flex
+                img.img-fluid(src='/images/noodles.png', alt='noodles', style='width: 150px; height: auto; margin-right: 15px;')
+                .coffee-description
+                  p Our noodles are perfectly chewy, with a rich, savory sauce that balances flavor and texture in every bite.<br>There are both veg as well as nonveg options to coose from.
+                  p Cost: &#8377; 150
+                  button.btn.btn-primary(onclick='addToCart("noodles", "noodles", 150)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Fried rice
+              .d-flex
+                img.img-fluid(src='/images/rice.png', alt='friedrice', style='width: 150px; height: auto; margin-right: 15px;')
+                .coffee-description
+                  p Our fried rice is savory, perfectly seasoned with soy sauce, packed with tender vegetables, eggs, and juicy protein, delivering a smoky, wok-fried flavor.<br>There are both veg as well as nonveg options to coose from.
+                  p Cost: &#8377; 180
+                  button.btn.btn-primary(onclick='addToCart("fried rice", "fried rice", 180)') Add to Cart
+         
+          .card.card-primary
+            .card-block
+              h3 Pizzas
+              .d-flex
+                img.img-fluid(src='/images/pizza.png', alt='pizza', style='width: 180px; height: 160px; margin-right: 15px;')
+                .coffee-description
+                  p Our pizza is a wood-fired, thin-crust pie topped with fresh mozzarella, tangy tomato sauce, and fragrant basil, perfectly crisped and bubbling with flavor.<br>There are both veg as well as nonveg options to coose from.
+                  p Cost: &#8377; 220
+                  button.btn.btn-primary(onclick='addToCart("pizza", "pizza", 220)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Pastas
+              .d-flex
+                img.img-fluid(src='/images/pasta.png', alt='pasta', style='width: 140px; height: auto; margin-right: 15px;')
+                .coffee-description
+                  p Our pasta is coated in a rich, flavorful sauce that complements its texture, creating a harmonious blend of taste and comfort.<br>There are both veg as well as nonveg options to coose from.
+                  p Cost: &#8377; 180
+                  button.btn.btn-primary(onclick='addToCart("pasta", "pasta", 180)') Add to Cart
+    .col-12.col-lg-3
+      .card.card-primary
+        .card-block
+          h2.card-title Customer reviews
+          a.btn.btn-primary.float-right(href='/location/review/new') Write a Review
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor Tapan 
+              small.reviewTimestamp 17 March 2021
+               .col-12
+              p Amazinggg place!
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor Sathwika 
+              small.reviewTimestamp 8 May 2022
+               .col-12
+              p Must visit!!
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor Nithin 
+              small.reviewTimestamp 2 January 2023
+               .col-12
+              p Wonderful food.  
+  // JavaScript for Add to Cart and Review functionality
+  script.
+    function addToCart(itemId, itemName, itemPrice) {
+      const item = {
+        id: itemId,
+        name: itemName,
+        price: itemPrice,
+        quantity: 1 // Set the quantity you want to add
+      };
+
+      // Send a POST request to add the item to the cart
+      fetch('/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to add item to cart');
+        } else {
+          showToast(itemName); // Show toast with item name
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+      function showToast(itemName) {
+        const toast = document.getElementById('toast');
+        toast.querySelector('.toast-body').textContent = `${itemName} added to cart!`; // Set toast message
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3000); // Hide after 3 seconds
+      }
+    }
+
+  

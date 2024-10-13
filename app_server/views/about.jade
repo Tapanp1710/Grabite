@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      
+   .card.card-primary
+            .card-block
+            <p style="color: black; font-size: 40px;"><strong>Welcome to Grabites!</strong></p>
+            <p style="color: white; font-size: 20px;">At Grabites, we believe that dining is more than just a meal – it's an experience. From the moment you walk through our doors, you'll be greeted with warm hospitality and a cozy atmosphere designed to make you feel at home. Whether you're here for a quick bite or a special occasion, our diverse menu is crafted to satisfy every palate, featuring fresh, locally-sourced ingredients and seasonal dishes.</p>
+            <p style="color: black; font-size: 40px;"> <strong>Why visit us?</strong></p>
+            <p style="color: white; font-size: 20px;">It's simple:<br>  Deliciously Authentic Cuisine: Our chefs pour their passion into every dish, delivering flavors that transport you to a world of culinary delight.<br>  Exceptional Service: We pride ourselves on going above and beyond to make every guest feel like part of our family.<br>  Ambiance that Inspires: Enjoy a relaxed, welcoming space thats perfect for everything from casual dinners to celebrations with friends and loved ones.<br>  Unforgettable Experiences: From signature cocktails to mouth-watering desserts, every visit is an opportunity to indulge in something special.</p>
+extends layout
+
+block content
+  .d-flex.align-items-center.justify-content-center(style="height: 100vh;") // Flex container that centers the box
+    .card.card-primary(style="width: 500px; background-color: #f8f9fa; border: 1px solid #ccc; padding: 20px;") // Ensure the box is visible
+      .card-block
+        .d-flex(style="justify-content: space-between; align-items: center;")
+          // Text on the left
+          .left-content
+            <p style="color: black; font-size: 50px;"><strong>Contact Us</strong></p>    
+            <p style="color: black; font-size: 25px;"><strong>Email: </strong><span style="font-size: 15px;">Grabitescontact@gmail.com</span></p> <!-- Email and Email ID on the same line -->
+            <p style="color: black; font-size: 25px;"><strong>Phone number:</strong></p>
+            <p style="color: black; font-size: 15px;">8885972123</p>
+
+          // Image on the right
+          .right-content
+            img.img-fluid(src='/images/contact.png', alt='noodles', style='width: 150px; height: auto;')
+  

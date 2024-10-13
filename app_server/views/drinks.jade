@@ -1,0 +1,75 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1 <p style="font-size: 200px;">Grabites.</p>
+                                                      
+  .row
+    .col-12.col-md-8
+      .card
+        .card-block
+          h4
+            a(href="/location")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Bites</p>
+            p.address Grab a bite to drive away hunger!<br>Checkout our food menu here!
+          p.address 500 Rs. for 2 people  
+          p.facilities
+            span.badge.badge-warning Tasty
+            span.badge.badge-warning Fresh
+            span.badge.badge-warning Loved
+  
+    .col-12.col-md-4
+      p(style='font-size: 70px; color: #FFFFFF; font-weight: bold;') Fast, Fresh and Full of Flavor!
+
+  // New block for Drinks
+  block drinks
+    .row
+      .col-12
+        <p style="font-size: 50px; font-weight: bold; line-height: 1;">Drinks</p>
+        p(style='font-size: 20px;') Explore our refreshing drink options below:
+
+      .col-12.col-md-6
+        .card
+          .card-block
+            h4
+              a(href="/drinks")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Soft Drinks</p>
+            p.address Quench your thirst with our selection of soft drinks! 
+            p.address 100 Rs. each
+            p.facilities
+              span.badge.badge-warning Refreshing
+              span.badge.badge-warning Chilled
+              span.badge.badge-warning Popular
+
+      .col-12.col-md-6
+        .card
+          .card-block
+            h4
+              a(href="/drinks")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Juices</p>
+            p.address Enjoy our freshly squeezed juices! 
+            p.address 150 Rs. each
+            p.facilities
+              span.badge.badge-warning Fresh
+              span.badge.badge-warning Healthy
+              span.badge.badge-warning Natural
+
+  // New block for Desserts
+  block desserts
+    .row
+      .col-12
+        <p style="font-size: 50px; font-weight: bold; line-height: 1;">Dessert</p>
+        p(style='font-size: 20px;') Finish your meal with our delightful desserts below:
+
+      .col-12.col-md-6
+        .card
+          .card-block
+            h4
+            <p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Fruit Salad</p>
+            p.address A refreshing mix of seasonal fruits to cool you down!
+            p.address 150 Rs. each
+            p.facilities
+              span.badge.badge-warning Healthy
+              span.badge.badge-warning Fresh
+              span.badge.badge-warning Light
+            // Use text-right class to align the button to the right
+            .text-right
+              button.btn.btn-primary(onclick='addToCart("Fruit custard", "Fruit custard", 100)') Add to Cart
