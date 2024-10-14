@@ -3,73 +3,133 @@ extends layout
 block content
   .row.banner
     .col-12
-      h1 <p style="font-size: 200px;">Grabites.</p>
-                                                      
+      h1 FRESH FRUIT JUICES
+
   .row
-    .col-12.col-md-8
-      .card
+    .col-12.col-lg-9
+      .row
+        .col-12.col-md-6
+          .card.card-primary
+            .card-block
+              h3 Orange Juice
+              .d-flex
+                img.img-fluid(src='/images/orange.png', alt='orange juice', style='width: 150px; height: auto; margin-right: 15px;')
+                .juice-description
+                  p Freshly squeezed orange juice, full of vitamin C and a burst of citrusy freshness with every sip.
+                  p Cost: &#8377; 80
+                  button.btn.btn-primary(onclick='addToCart("orangejuice", "Orange Juice", 80)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Apple Juice
+              .d-flex
+                img.img-fluid(src='/images/apple.png', alt='apple juice', style='width: 150px; height: auto; margin-right: 15px;')
+                .juice-description
+                  p Pure and refreshing apple juice made from freshly harvested apples, offering a crisp and natural sweetness.
+                  p Cost: &#8377; 90
+                  button.btn.btn-primary(onclick='addToCart("applejuice", "Apple Juice", 90)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Grape Juice
+              .d-flex
+                img.img-fluid(src='/images/grape.png', alt='grape juice', style='width: 150px; height: auto; margin-right: 15px;')
+                .juice-description
+                  p Our grape juice is packed with antioxidants and made from ripe grapes, offering a sweet and tangy flavor.
+                  p Cost: &#8377; 85
+                  button.btn.btn-primary(onclick='addToCart("grapejuice", "Grape Juice", 85)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Mango Juice
+              .d-flex
+                img.img-fluid(src='/images/mango.png', alt='mango juice', style='width: 150px; height: auto; margin-right: 15px;')
+                .juice-description
+                  p This tropical mango juice is full of vibrant flavors with a perfect blend of sweetness and freshness.
+                  p Cost: &#8377; 100
+                  button.btn.btn-primary(onclick='addToCart("mangojuice", "Mango Juice", 100)') Add to Cart
+          .card.card-primary
+            .card-block
+              h3 Pineapple Juice
+              .d-flex
+                img.img-fluid(src='/images/pineapple.png', alt='pineapple juice', style='width: 150px; height: auto; margin-right: 15px;')
+                .juice-description
+                  p A refreshing blend of tropical pineapple with a tangy twist that is both sweet and tart.
+                  p Cost: &#8377; 95
+                  button.btn.btn-primary(onclick='addToCart("pineapplejuice", "Pineapple Juice", 95)') Add to Cart
+    .col-12.col-lg-3
+      .card.card-primary
         .card-block
-          h4
-            a(href="/location")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Bites</p>
-            p.address Grab a bite to drive away hunger!<br>Checkout our food menu here!
-          p.address 500 Rs. for 2 people  
-          p.facilities
-            span.badge.badge-warning Tasty
-            span.badge.badge-warning Fresh
-            span.badge.badge-warning Loved
-  
-    .col-12.col-md-4
-      p(style='font-size: 70px; color: #FFFFFF; font-weight: bold;') Fast, Fresh and Full of Flavor!
+          h2.card-title Customer reviews
+          a.btn.btn-primary.float-right(href='/location/review/new') Write a Review
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor User1
+              small.reviewTimestamp 25 August 2023
+              .col-12
+              p Best fruit juices I've ever had!
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor User2
+              small.reviewTimestamp 10 September 2023
+              .col-12
+              p Fresh and tasty.
+          .row.review
+            .col-12.no-gutters.review-header
+              span.rating
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.fas.fa-star
+                i.far.fa-star
+              span.reviewAuthor User3
+              small.reviewTimestamp 5 October 2023
+              .col-12
+              p A must-try for juice lovers.
+  // JavaScript for Add to Cart functionality
+  script.
+    function addToCart(itemId, itemName, itemPrice) {
+      const item = {
+        id: itemId,
+        name: itemName,
+        price: itemPrice,
+        quantity: 1 // Set the quantity you want to add
+      };
 
-  // New block for Drinks
-  block drinks
-    .row
-      .col-12
-        <p style="font-size: 50px; font-weight: bold; line-height: 1;">Drinks</p>
-        p(style='font-size: 20px;') Explore our refreshing drink options below:
+      // Send a POST request to add the item to the cart
+      fetch('/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to add item to cart');
+        } else {
+          showToast(itemName); // Show toast with item name
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
 
-      .col-12.col-md-6
-        .card
-          .card-block
-            h4
-              a(href="/drinks")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Soft Drinks</p>
-            p.address Quench your thirst with our selection of soft drinks! 
-            p.address 100 Rs. each
-            p.facilities
-              span.badge.badge-warning Refreshing
-              span.badge.badge-warning Chilled
-              span.badge.badge-warning Popular
-
-      .col-12.col-md-6
-        .card
-          .card-block
-            h4
-              a(href="/drinks")<p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Juices</p>
-            p.address Enjoy our freshly squeezed juices! 
-            p.address 150 Rs. each
-            p.facilities
-              span.badge.badge-warning Fresh
-              span.badge.badge-warning Healthy
-              span.badge.badge-warning Natural
-
-  // New block for Desserts
-  block desserts
-    .row
-      .col-12
-        <p style="font-size: 50px; font-weight: bold; line-height: 1;">Dessert</p>
-        p(style='font-size: 20px;') Finish your meal with our delightful desserts below:
-
-      .col-12.col-md-6
-        .card
-          .card-block
-            h4
-            <p style="font-size: 40px; font-weight: bold; line-height: 1.5;">Fruit Salad</p>
-            p.address A refreshing mix of seasonal fruits to cool you down!
-            p.address 150 Rs. each
-            p.facilities
-              span.badge.badge-warning Healthy
-              span.badge.badge-warning Fresh
-              span.badge.badge-warning Light
-            // Use text-right class to align the button to the right
-            .text-right
-              button.btn.btn-primary(onclick='addToCart("Fruit custard", "Fruit custard", 100)') Add to Cart
+      function showToast(itemName) {
+        const toast = document.getElementById('toast');
+        toast.querySelector('.toast-body').textContent = `${itemName} added to cart!`; // Set toast message
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3000); // Hide after 3 seconds
+      }
+    }

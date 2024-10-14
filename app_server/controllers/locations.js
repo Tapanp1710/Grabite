@@ -8,16 +8,16 @@ const locationInfo = (req, res) => {
    res.render('menu', { title: 'Menu' }); 
 }; // Added closing brace
 
-const softdrink = (req, res) => { // Changed to camelCase
-   res.render('Softdrinks', { title: 'Softdrinks' }); 
+const soda = (req, res) => { // Changed to camelCase
+   res.render('soda', { title: 'Softdrinks' }); 
 };
 
 const juices = (req, res) => {
-   res.render('Juices', { title: 'Juices' }); 
+   res.render('drinks', { title: 'Juices' }); 
 };
 
 const addReview = (req, res) => {
-   res.render('NewReview', { title: 'Add review' });
+   res.render('newReview', { title: 'Add review' });
 };
 
 const contact = (req, res) => {
@@ -51,6 +51,6 @@ module.exports = {
    cart,
    addToCart,
    removeFromCart,
-   softdrink, // Changed to match the new name
+   soda, // Changed to match the new name
    juices
 };
